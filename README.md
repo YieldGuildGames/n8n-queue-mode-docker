@@ -1,4 +1,4 @@
-# n8n Docker Compose Setup in Queue Mode: Technical Documentation
+# n8n Docker Compose Setup in Queue Mode
 
 ## 1. Introduction
 
