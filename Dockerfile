@@ -26,7 +26,7 @@ USER n8n
 
 # Set environment variables
 ENV NODE_ENV=production \
-    N8N_PORT=5678 \
+    N8N_PORT=${PORT:-5678} \
     NODE_FUNCTION_ALLOW_EXTERNAL=uuid \
     DB_TYPE=postgresdb \
     GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-UTC} \
@@ -38,17 +38,11 @@ ENV NODE_ENV=production \
     EXECUTIONS_DATA_PRUNE=false
 
 # Expose port
-# EXPOSE 5678
-
-
-
-EXPOSE $PORT
-# If a hard coded port is set it will break cloud run - use this dynamic variable
-
+EXPOSE ${PORT:-5678}
 
 # Set healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-    CMD wget --spider http://localhost:5678/healthz || exit 1
+    CMD wget --spider http://localhost:${PORT:-5678}/healthz || exit 1
 
 # Command to run n8n
 CMD ["n8n", "start"]
